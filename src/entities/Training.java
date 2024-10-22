@@ -7,15 +7,15 @@ public class Training {
 		private String description;
 		private int durationD;
 		private String format;
-		private int price;
+		private double price;
 		
-		public Training(int idTraining, String NameT, String description, int durationD, String format, int price) {
+		public Training(int idTraining, String NameT, String description, int durationD, String format, double rsprice) {
 			this.idTraining = idTraining;
 			this.NameT = NameT;
 			this.description = description;
 			this.durationD = durationD;
 			this.format = format;
-			this.price = price;
+			this.price = rsprice;
 		}
 		
 		public int getidTraining() {
@@ -58,11 +58,11 @@ public class Training {
 			this.format = format;
 		}
 
-		public void setprice(int price) {
+		public void setprice(double price) {
 			this.price = price;
 		}
 		
-		public int getprice() {
+		public double getprice() {
 			return price;
 		}
 

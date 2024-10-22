@@ -95,7 +95,7 @@ public class UserDao implements Dao<User>{
 		return null;
 	}
 	
-	public User findUserByLogin(String Name) {
+	public User findUserByName(String Name) {
 		String str = "SELECT * FROM T_Users where Login=?;";
 		try (PreparedStatement ps = connection.prepareStatement(str)){
 			ps.setString(1, Name);							
@@ -108,4 +108,5 @@ public class UserDao implements Dao<User>{
 		} 	
 		return null;
 	}
+
 }
