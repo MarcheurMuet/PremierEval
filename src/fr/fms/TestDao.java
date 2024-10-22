@@ -44,29 +44,25 @@ public class TestDao {
 	private static void testTrainingDao() {
 		TrainingDao trainingDao = new TrainingDao();
 		
-		//Afficher toutes les Formations
 		for(Training training : trainingDao.readAll()) {
 			System.out.println(training);
 		}	
 		System.out.println();
-		//Afficher une Formation à partir de son id
+		
 		Training training = trainingDao.read(5);
 		System.out.println(training);
 		
-		//Mise à jour de la Formation
-		training.setDescription("Batterie TopTop");
+		training.setDescription("Formation trop bien pour vous ^^");
 		trainingDao.update(training);
 		
-		//Supprimer une Formation
 		if(training != null)		
 			trainingDao.delete(training);
 		
-		//Insertion d'une Formation en base
 		if(training != null)		
 			trainingDao.create(training);
 		
 		System.out.println();
-		//Afficher toutes les Formations
+
 		for(Training tra : trainingDao.readAll()) {
 			System.out.println(tra);
 	}
