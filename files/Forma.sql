@@ -17,21 +17,33 @@ INSERT INTO T_Users (idUser, Name, FirstName, password, email, adress, phoneNumb
 INSERT INTO T_Users (idUser, Name, FirstName, password, email, adress, phoneNumber) VALUES ( 3, 'Driger' ,	'Eliel', 'heiiiiiiiiiiin', 'propovmariokart@gmail.com','allersansretour', 666999222);
 
 
+
+CREATE TABLE T_Formats (
+	IdFormat 			int(4) PRIMARY KEY AUTO_INCREMENT,
+	format 				varchar(10) NOT NULL
+) ENGINE = InnoDB;
+
+INSERT INTO T_Formats (IdFormat, format) VALUES (1, 'Mixte');
+INSERT INTO T_Formats (IdFormat, format) VALUES (2, 'Distentiel');
+INSERT INTO T_Formats (IdFormat, format) VALUES (3, 'Presentiel');
+
 CREATE TABLE T_Training (
 	IdTraining			int(4) PRIMARY KEY AUTO_INCREMENT,
 	NameT				varchar(40)	NOT NULL UNIQUE,
 	description			varchar(80)	NOT NULL UNIQUE,
 	durationD			INT (40),
-	format				varchar(40)	NOT NULL,
-	price				INT (40)
+	price				INT (40),
+	IdFormat			INT(40)	NOT NULL,
+	FOREIGN KEY (IdFormat)	REFERENCES T_Formats(IdFormat)
 ) ENGINE = InnoDB;
 
-INSERT INTO T_Training (IdTraining, NameT, description, durationD, format, price) VALUES (1, 'DevWeb', 'Formation pour coder', 60, 'Mixte', 900);
-INSERT INTO T_Training (IdTraining, NameT, description, durationD, format, price) VALUES (2, 'Cms', 'Formation pour... jen sais rien ', 140, 'Distanciel', 300);
-INSERT INTO T_Training (IdTraining, NameT, description, durationD, format, price) VALUES (3, 'Bureautique', 'Formation pour taper au clavier', 500, 'Distanciel', 50);
-INSERT INTO T_Training (IdTraining, NameT, description, durationD, format, price) VALUES (4, 'IA', 'Formation pour travailler avec les IA', 20, 'Mixte', 7000);
-INSERT INTO T_Training (IdTraining, NameT, description, durationD, format, price) VALUES (5, 'CyberSecu', 'Formation pour securiser les sites internet', 40, 'Presentiel', 2300);
-INSERT INTO T_Training (IdTraining, NameT, description, durationD, format, price) VALUES (6, 'Conducteur Poid Lourd', 'Formation pour conduire', 120, 'Presentiel', 80000);
+INSERT INTO T_Training (IdTraining, NameT, description, durationD, price, IdFormat) VALUES (1, 'DevWeb', 'Formation pour coder', 60, 900, 1);
+INSERT INTO T_Training (IdTraining, NameT, description, durationD, price, IdFormat) VALUES (2, 'Cms', 'Formation pour... jen sais rien ', 140, 300, 1);
+INSERT INTO T_Training (IdTraining, NameT, description, durationD, price, IdFormat) VALUES (3, 'Bureautique', 'Formation pour taper au clavier', 500, 50, 2);
+INSERT INTO T_Training (IdTraining, NameT, description, durationD, price, IdFormat) VALUES (4, 'IA', 'Formation pour travailler avec les IA', 20, 7000, 2);
+INSERT INTO T_Training (IdTraining, NameT, description, durationD, price, IdFormat) VALUES (5, 'CyberSecu', 'Formation pour securiser les sites internet', 40, 2300, 3);
+INSERT INTO T_Training (IdTraining, NameT, description, durationD, price, IdFormat) VALUES (6, 'Conducteur Poid Lourd', 'Formation pour conduire', 120, 80000, 3);
+
 
 CREATE TABLE T_Admin (
 	IdAdmin 			int(4) PRIMARY KEY AUTO_INCREMENT,
@@ -43,15 +55,26 @@ INSERT INTO T_Admin (IdAdmin, NickName, passwordA) VALUES (1, 'MasterMind', 'Big
 
 CREATE TABLE T_Basket (
 	IdBasket 			int(4) PRIMARY KEY AUTO_INCREMENT,
-	FormaList			varchar(400)	NOT NULL,
+	Amount				float(4) NOT NULL DEFAULT 0,
+	DateBasket			DATE NOT NULL DEFAULT NOW(),
 	idUser				int(4),
 	FOREIGN KEY (idUser)	REFERENCES T_Users(idUser)
 ) ENGINE = InnoDB;
 
-INSERT INTO T_Basket (IdBasket, FormaList, idUser) VALUES (1, 'DevWeb, Cms, IA, CyberSecu', idUser);
+CREATE TABLE T_Basket_Items (
+	IdBasketItem			int(4)	PRIMARY KEY AUTO_INCREMENT,
+	IdTraining           INT(4)   NOT NULL,
+	FOREIGN KEY(IdTraining) REFERENCES T_Training(IdTraining),
+	Quantity			FLOAT(4) NOT NULL DEFAULT 1,
+	UnitaryPrice		FLOAT(4)	NOT NULL DEFAULT 0,
+	IdBasket             INT(4)   NOT NULL,
+	FOREIGN KEY(IdBasket) REFERENCES T_Basket(IdBasket)
+) ENGINE = InnoDB;
 
 SHOW Tables;
-SELECT * from T_Users;
-SELECT * from T_Training;
-SELECT * from T_Admin;
+SELECT * FROM T_Users;
+SELECT * FROM T_Training;
+SELECT * FROM T_Formats;
+SELECT * FROM T_Admin;
 SELECT * from T_Basket;
+SELECT * from T_Basket_Items;

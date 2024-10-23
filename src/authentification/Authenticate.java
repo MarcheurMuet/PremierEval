@@ -27,4 +27,14 @@ public class Authenticate {
 	public void addUser(String Name, String FirstName, String password,String email,String adress) {
 		UserDao.create(new User(0, Name, FirstName, password, email, adress, 0));		
 	}
+
+	public void addUser(String name, String password) {
+		
+		
+	}
+
+	public boolean addUser(User user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

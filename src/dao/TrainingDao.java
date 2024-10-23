@@ -18,7 +18,7 @@ public class TrainingDao implements Dao<Training>{
 			ps.setString(3, obj.getdescription());	
 			ps.setInt(4, obj.getdurationD());
 			ps.setString(5, obj.getformat());
-			ps.setDouble(6, obj.getprice());
+			ps.setDouble(6, Training.getprice());
 			if( ps.executeUpdate() == 1)	return true;
 		} catch (SQLException e) {
 			logger.severe("problème lors de la création d'une formation " + e.getMessage());
@@ -56,7 +56,7 @@ public class TrainingDao implements Dao<Training>{
 			ps.setString(2, obj.getdescription());	
 			ps.setInt(3, obj.getdurationD());
 			ps.setString(4, obj.getformat());
-			ps.setDouble(5, obj.getprice());
+			ps.setDouble(5, Training.getprice());
 			if( ps.executeUpdate() == 1)	return true;
 		} catch (SQLException e) {
 			logger.severe("problème lors de la mise à jour d'une formation " + e.getMessage());

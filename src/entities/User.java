@@ -21,6 +21,12 @@ public class User {
 		}
 
 
+		public User(int idUser2, String name2, String fName, String email2, String tel, String address,
+				String password2) {
+			// TODO Auto-generated constructor stub
+		}
+
+
 		public int getIdUser() {
 			return idUser;
 		}

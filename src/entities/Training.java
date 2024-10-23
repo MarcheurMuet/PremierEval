@@ -7,7 +7,7 @@ public class Training {
 		private String description;
 		private int durationD;
 		private String format;
-		private double price;
+		private static double price;
 		
 		public Training(int idTraining, String NameT, String description, int durationD, String format, double rsprice) {
 			this.idTraining = idTraining;
@@ -15,7 +15,7 @@ public class Training {
 			this.description = description;
 			this.durationD = durationD;
 			this.format = format;
-			this.price = rsprice;
+			Training.price = rsprice;
 		}
 		
 		public int getidTraining() {
@@ -59,10 +59,10 @@ public class Training {
 		}
 
 		public void setprice(double price) {
-			this.price = price;
+			Training.price = price;
 		}
 		
-		public double getprice() {
+		public static double getprice() {
 			return price;
 		}
 
@@ -72,6 +72,21 @@ public class Training {
 		}
 
 		public int getId() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public static int getQuantity() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public void setQuantity(double d) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public int getIdTraining() {
 			// TODO Auto-generated method stub
 			return 0;
 		}
