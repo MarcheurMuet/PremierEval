@@ -41,7 +41,7 @@ public class UserDao implements Dao<User>{
 	public boolean update(User obj) {
 		try (Statement statement = connection.createStatement()){
 				String str = "UPDATE T_Users set Name='" + obj.getName() +"' , " +
-							"password='" 		+ obj.getpassword() +"'" + " where idUser=" + obj.getIdUser() + ";";			
+							"FirstName='" 		+ obj.getFirstName() +"'" + " where idUser=" + obj.getIdUser() + ";";			
 				if(statement.executeUpdate(str) == 1) return true;
 		} catch (SQLException e) {
 			logger.severe("problème lors de la mise à jour d'un utilisateur " + e.getMessage());
@@ -96,7 +96,7 @@ public class UserDao implements Dao<User>{
 	}
 	
 	public User findUserByName(String Name) {
-		String str = "SELECT * FROM T_Users where Login=?;";
+		String str = "SELECT * FROM T_Users where Name=?;";
 		try (PreparedStatement ps = connection.prepareStatement(str)){
 			ps.setString(1, Name);							
 			try (ResultSet rs = ps.executeQuery()){

@@ -4,13 +4,13 @@ public class BasketItem {
 	private int idBasketItem;
 
 	private int idBasket;
-	private int idTraining;
+	private Object idTraining;
 	private int quantity;
 	private double unitaryPrice;
 
-	public BasketItem(int idBasketItem, int idTraining, int quantity, double unitaryPrice, int idBasket) {
+	public BasketItem(int idBasketItem, Object object, int quantity, double unitaryPrice, int idBasket) {
 		this.idBasketItem = idBasketItem;
-		this.idTraining = idTraining;
+		this.idTraining = object;
 		this.quantity = quantity;
 		this.unitaryPrice = unitaryPrice;
 		this.idBasket = idBasket;
@@ -24,7 +24,7 @@ public class BasketItem {
 		this.idBasketItem = idBasketItem;
 	}
 
-	public int getIdTraining() {
+	public Object getIdTraining() {
 		return idTraining;
 	}
 

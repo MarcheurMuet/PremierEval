@@ -23,10 +23,10 @@ public class DaoFactory {
 	}
 	public static Dao<Format> getFormatDao() {
 		// TODO Auto-generated method stub
-		return null;
+		return new FormatDao();
 	}
 	public static Dao<BasketItem> getBasketItemDao() {
 		// TODO Auto-generated method stub
-		return null;
+		return new BasketItemsDao();
 	}
 }

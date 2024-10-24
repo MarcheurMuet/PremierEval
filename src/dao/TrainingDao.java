@@ -12,12 +12,12 @@ public class TrainingDao implements Dao<Training>{
 	public boolean create(Training obj) {
 		String str = "INSERT INTO T_Training (idTraining, nameT, description, durationD, format, price) VALUES (?,?,?,?,?,?);";	
 		try (PreparedStatement ps = connection.prepareStatement(str)){
-			ps.setInt(1, obj.getidTraining());
+			ps.setInt(1, obj.getIdTraining());
 			ps.setString(2, obj.getNameT());
 			ps.setString(3, obj.getdescription());	
-			ps.setInt(4, Training.getdurationD());
+			ps.setInt(4, obj.getdurationD());
 			ps.setString(5, obj.getformat());
-			ps.setDouble(6, Training.getprice());
+			ps.setDouble(6, obj.getprice());
 			if( ps.executeUpdate() == 1)	return true;
 		} catch (SQLException e) {
 			logger.severe("problème lors de la création d'une formation " + e.getMessage());
@@ -29,7 +29,7 @@ public class TrainingDao implements Dao<Training>{
 		try (Statement statement = connection.createStatement()){
 			String str = "SELECT * FROM T_Training where IdTraining=" + id + ";";									
 			ResultSet rs = statement.executeQuery(str);
-			if(rs.next()) return new Training(rs.getInt(1) , rs.getString(2) , rs.getString(3) , rs.getInt(4) , rs.getString(5) , rs.getInt(6));
+			if(rs.next()) return new Training(rs.getInt(1) , rs.getString(2) , rs.getString(3) , rs.getInt(4) , rs.getString(5) , rs.getInt(6), id);
 		} catch (SQLException e) {
 			logger.severe("problème de lecture d'une formation " + e.getMessage());
 		} 	
@@ -39,7 +39,7 @@ public class TrainingDao implements Dao<Training>{
 
 	public boolean delete(Training obj) {
 		try (Statement statement = connection.createStatement()){
-			String str = "DELETE FROM T_Training where IdTraining=" + obj.getidTraining() + ";";									
+			String str = "DELETE FROM T_Training where IdTraining=" + this.getIdTraining() + ";";									
 			statement.executeUpdate(str);		
 			return true;
 		} catch (SQLException e) {
@@ -48,14 +48,19 @@ public class TrainingDao implements Dao<Training>{
 		return false;
 	}
 
+	private String getIdTraining() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public boolean update(Training obj) {
 		String str = "UPDATE T_Training set NameT=? , description=? , durationD=?,  format=?, price=? where idTraining=?;";
 		try (PreparedStatement ps = connection.prepareStatement(str)){				
 			ps.setString(1, obj.getNameT());
 			ps.setString(2, obj.getdescription());	
-			ps.setInt(3, Training.getdurationD());
+			ps.setInt(3, obj.getdurationD());
 			ps.setString(4, obj.getformat());
-			ps.setDouble(5, Training.getprice());
+			ps.setDouble(5, obj.getprice());
 			if( ps.executeUpdate() == 1)	return true;
 		} catch (SQLException e) {
 			logger.severe("problème lors de la mise à jour d'une formation " + e.getMessage());
@@ -69,13 +74,13 @@ public class TrainingDao implements Dao<Training>{
 		try(Statement statement = connection.createStatement()){
 			try(ResultSet resultSet = statement.executeQuery(strSQL)){ 			
 				while(resultSet.next()) {
-					int rsidTraining = resultSet.getInt(1);	
+					int rsIdTraining = resultSet.getInt(1);	
 					String rsNameT = resultSet.getString(2);
 					String rsdescription = resultSet.getString(3);
 					int rsdurationD = resultSet.getInt(4);
 					double rsprice = resultSet.getDouble(5);
 					String rsformat = resultSet.getString(6);
-					training.add((new Training(rsidTraining,rsNameT,rsdescription,rsdurationD,rsformat,rsprice)));						
+					training.add((new Training(rsIdTraining,rsNameT,rsdescription,rsdurationD,rsformat,rsprice)));						
 				}	
 			}
 		} catch (SQLException e) {
@@ -97,7 +102,7 @@ public class TrainingDao implements Dao<Training>{
 					int rsdurationD = resultSet.getInt(4);
 					String rsformat = resultSet.getString(5);
 					double rsprice = resultSet.getDouble(6);
-					training.add(new Training(rsidTraining, rsNameT, rsdescription, rsdurationD, rsformat, rsprice));						
+					training.add(new Training(rsidTraining, rsNameT, rsdescription, rsdurationD, rsformat, rsprice, rsdurationD));						
 				}	
 			}
 		} catch (SQLException e) {
@@ -118,7 +123,7 @@ public class TrainingDao implements Dao<Training>{
 					int rsdurationD = resultSet.getInt(4);
 					String rsformat = resultSet.getString(5);
 					double rsprice = resultSet.getDouble(6);
-					training.add(new Training(rsidTraining, rsNameT, rsdescription, rsdurationD, rsformat, rsprice));						
+					training.add(new Training(rsidTraining, rsNameT, rsdescription, rsdurationD, rsformat, rsprice, rsdurationD));						
 				}	
 			}
 		} catch (SQLException e) {

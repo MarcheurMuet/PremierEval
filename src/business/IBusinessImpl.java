@@ -1,6 +1,5 @@
 package business;
 import java.util.Date;
-import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,20 +27,20 @@ public class IBusinessImpl implements IBusiness {
 	}
 
 	@Override
-	public void addToCart(Training training) {
-		Training art = basket.get(training.getIdBasket());
+	public void addToBasket(Training training) {
+		Training art = basket.get(this.getIdTraining());
 		if(art != null) {
-			art.setQuantity(Training.getQuantity() + 1);
+			art.setQuantity(this.getQuantity() + 1);
 		}
-		else basket.put(training.getIdBasket(), training);
+		else basket.put(this.getIdUser(), art);
 	}
 
 	@Override
 	public void rmFromCart(int IdTraining) {
 		Training training = basket.get(IdTraining);
 		if(training != null) {
-			if(Training.getQuantity() == 1)	basket.remove(IdTraining);
-			else training.setQuantity(Training.getQuantity() - 1);
+			if(this.getQuantity() == 1)	basket.remove(IdTraining);
+			else training.setQuantity(this.getQuantity() - 1);
 		}	
 	}
 
@@ -56,8 +55,8 @@ public class IBusinessImpl implements IBusiness {
 			double total = getTotal(); 
 			Basket basket = new Basket(total, new Date(), IdUser);
 			if(basketDao.create(basket)) {	
-				for(Training training : basket.values()) {	
-					BasketItemDao.create(new BasketItem(0, training.getidTraining(), Training.getQuantity(), Training.getprice(), Basket.getIdBasket(IdUser)));
+				for(@SuppressWarnings("unused") Training training : basket.values()) {	
+					BasketItemDao.create(new BasketItem(0, this.getIdTraining(), this.getQuantity(), this.getprice(), Basket.getIdBasket(IdUser)));
 				}
 				return Basket.getIdBasket(IdUser);
 			}
@@ -82,8 +81,13 @@ public class IBusinessImpl implements IBusiness {
 
 	public double getTotal() {
 		double [] total = {0};
-		basket.values().forEach((a) -> total[0] += Training.getprice() * Training.getQuantity()); 	
+		basket.values().forEach((a) -> total[0] += this.getprice() * this.getQuantity()); 	
 		return total[0];
+	}
+
+	private int getprice() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	public boolean isBasketEmpty() {
@@ -121,7 +125,7 @@ public class IBusinessImpl implements IBusiness {
 
 	@Override
 	public ArrayList<Training> getBasket() {
-		return null;
+		return new ArrayList<Training> (basket.values());
 	}
 
 	@Override
@@ -148,26 +152,39 @@ public class IBusinessImpl implements IBusiness {
 		return new ArrayList<Training> (Format.values());
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	public void rmFromBasket(int IdBasket) {
 		Training training = basket.get(IdBasket);
 		if(training != null) {
-			if(Training.getQuantity() == 1)	basket.remove(training);
-			else training.setQuantity(Training.getQuantity() - 1);
+			if(this.getQuantity() == 1)	basket.remove(training);
+			else training.setQuantity(this.getQuantity() - 1);
 		}
 	}
 
-	@Override
-	public void addToBasket(Training training) {
-		Training art = basket.get(Training.getidTraining());
-		if(art != null) {
-			art.setQuantity(Training.getQuantity() + 1);
-		}
-		else basket.put(Training.getIdUser(), art);
+	private int getQuantity() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private Object getIdTraining() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private Integer getIdUser() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public ArrayList<Training> readTrainingsByFormat(int IdFormat) {
 		return null;
+	}
+
+	@Override
+	public void addToCart(Training training) {
+		// TODO Auto-generated method stub
+		
 	}
 }

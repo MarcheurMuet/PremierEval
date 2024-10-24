@@ -12,7 +12,7 @@ public class BasketItemsDao implements Dao<BasketItem> {
 	public boolean create(BasketItem obj) {
 		String str = "INSERT INTO T_Order_Items (IdTraining, Quantity, UnitaryPrice, IdBasket) VALUES (?,?,?,?);";	
 		try (PreparedStatement ps = connection.prepareStatement(str)){	
-			ps.setInt(1, obj.getIdTraining());
+			ps.setInt(1, (int) obj.getIdTraining());
 			ps.setInt(2, obj.getQuantity());
 			ps.setDouble(3, obj.getUnitaryPrice());
 			ps.setInt(4, obj.getIdBasket());

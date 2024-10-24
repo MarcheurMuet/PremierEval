@@ -13,19 +13,20 @@ public class FormaAPP {
 	
 	public static final String TEXT_BLUE = "\u001B[36m";
 	public static final String TEXT_RESET = "\u001B[0m";
-	private static final String COLUMN_DESCRIPTION = "DESCRIPTION";
+	private static final String COLUMN_DESCRIPTION = "Description";
 	private static final String COLUMN_PRICE = "PRIX";
-	private static final Object COLUMN_IDFORMAT = null;
-	private static final Object COLUMN_FORMAT = null;
-	private static final Object COLUMN_DURATIOND = null;
-	private static final Object COLUMN_NAMET = null;
-	private static final Object COLUMN_IDTRAINING = null;
-	private static final Object COLUMN_IDUSER = null;
-	private static final Object COLUMN_DATEBASKET = null;
-	private static final Object COLUMN_AMOUNT = null;
-	private static final Object COLUMN_IDBASKET = null;
+	private static final Object COLUMN_IDFORMAT = "ID_FORMAT";
+	private static final Object COLUMN_FORMAT = "FORMAT";
+	private static final Object COLUMN_DURATIOND = "Durée";
+	private static final Object COLUMN_NAMET = "Nom de formation";
+	private static final Object COLUMN_IDTRAINING = "ID_TRAINING";
+	private static final Object COLUMN_IDUSER = "ID_USER";
+	private static final Object COLUMN_DATEBASKET = "DATE_BASKET";
+	private static final Object COLUMN_AMOUNT = "AMOUNT";
+	private static final Object COLUMN_IDBASKET = "ID_BASKET";
 	private static int idUser = 0;
-	private static String name = null; 
+	private static String Name = null;
+	private static String FirstName; 
 	
 	public static void main(String[] args) {
 		System.out.println("Bonjour et bienvenu, voici la liste de formation disponible \n");
@@ -48,7 +49,7 @@ public class FormaAPP {
 					break;
 				case 7 : connection();
 					break;
-				case 8 : System.out.println("à bientôt dans notre boutique :)");
+				case 8 : System.out.println("à bientôt!");
 					break;					
 				default : System.out.println("veuillez saisir une valeur entre 1 et 8");
 			}
@@ -59,14 +60,14 @@ public class FormaAPP {
 	 * Méthode qui affiche le menu principale
 	 */
 	public static void displayMenu() {	
-		if(name != null)	System.out.print(TEXT_BLUE + "Compte : " + name);
+		if(Name != null)	System.out.print(TEXT_BLUE + "Compte : " + Name);
 		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
 		System.out.println("1 : Ajouter un article au panier");
 		System.out.println("2 : Retirer un article du panier");
 		System.out.println("3 : Afficher mon panier + total pour passer commande");
 		System.out.println("4 : Afficher tous les articles en stock");
-		System.out.println("5 : Afficher toutes les catégories en base");
-		System.out.println("6 : Afficher tous les articles d'une catégorie");
+		System.out.println("5 : Afficher tous les format en base");
+		System.out.println("6 : Afficher toute les formation d'un format spécifique");
 		System.out.println("7 : Connexion(Deconnexion) à votre compte");
 		System.out.println("8 : sortir de l'application");
 	}
@@ -76,9 +77,9 @@ public class FormaAPP {
 	 */
 	public static void displayTraining() { 				
 		System.out.printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
-		System.out.printf("%-25s | %-25s | %-25s | %-25s | %-25s | %-25s %n",COLUMN_IDTRAINING,COLUMN_NAMET,COLUMN_DESCRIPTION,COLUMN_DURATIOND,COLUMN_PRICE, COLUMN_IDFORMAT);
+		System.out.printf("%-25s | %-25s | %-45s | %-25s | %-25s | %-2s |%n",COLUMN_IDTRAINING,COLUMN_NAMET,COLUMN_DESCRIPTION,COLUMN_DURATIOND,COLUMN_PRICE, COLUMN_IDFORMAT);
 		System.out.printf("--------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
-		business.readTrainings().forEach( a -> System.out.printf("%-25s | %-25s | %-25s | %-25s%n",Training.getidTraining(),a.getNameT(),a.getdescription(),Training.getdurationD() , Training.getprice(), a.getformat()));
+		business.readTrainings().forEach( a -> System.out.printf("%-25s | %-25s | %-45s | %-25s | %-25s | %-3s |%n",a.getIdTraining(),a.getNameT(),a.getdescription(),a.getdurationD() , a.getprice(), a.getformat()));
 	}
 	
 	/**
@@ -93,7 +94,7 @@ public class FormaAPP {
 			System.out.printf("------------------------------------------------------------%n");
 			System.out.printf("%-15s | %-15s | %-15s | %-15s %n",COLUMN_IDTRAINING,COLUMN_NAMET,COLUMN_DESCRIPTION,COLUMN_DURATIOND,COLUMN_PRICE,COLUMN_IDFORMAT);
 			System.out.printf("------------------------------------------------------------%n");
-			business.readTrainingByFormId(id).forEach( a -> System.out.printf("%-15s | %-15s | %-15s | %-15s%n",Training.getidTraining(),a.getNameT(),a.getdescription(), Training.getdurationD(), Training.getprice(), a.getformat()));
+			business.readTrainingByFormId(id).forEach( a -> System.out.printf("%-15s | %-15s | %-15s | %-15s%n",a.getIdTraining(),a.getNameT(),a.getdescription(), a.getdurationD(), a.getprice(), a.getformat()));
 		}
 		else System.out.println("cette catégorie n'existe pas !");
 	}
@@ -105,7 +106,7 @@ public class FormaAPP {
 		System.out.printf("---------------------------------------------------------------------------------------------------%n");
 		System.out.printf("%-25s | %-25s %n",COLUMN_IDFORMAT,COLUMN_FORMAT);
 		System.out.printf("---------------------------------------------------------------------------------------------------%n");
-		business.readFormat().forEach( c -> System.out.printf("%-25s | %-25s | %-25s %n",c.getIdFormat(),c.getformat()));		
+		business.readFormat().forEach( c -> System.out.printf("%-25s | %-25s %n",c.getIdFormat(),c.getformat()));		
 	}
 	
 	/**
@@ -140,9 +141,9 @@ public class FormaAPP {
 		else {
 			System.out.println("CONTENU DU PANIER :");
 			System.out.printf("------------------------------------------------------------------------------------------------------------------------%n");
-			System.out.printf("%-25s | %-25s | %-25s | %-25s | %-25s %n",COLUMN_IDBASKET,COLUMN_AMOUNT,COLUMN_DATEBASKET,COLUMN_IDUSER);
+			System.out.printf("%-25s | %-25s | %-25s | %-25s %n",COLUMN_IDBASKET,COLUMN_AMOUNT,COLUMN_DATEBASKET,COLUMN_IDUSER);
 			System.out.printf("------------------------------------------------------------------------------------------------------------------------%n");
-			business.getCart().forEach( a -> System.out.printf("%-25s | %-25s | %-25s | %-25s | %-25s%n",a.getIdBasket(),a.getAmount(),a.getDateBasket(), a.getIdUser()));
+			business.getBasket().forEach( a -> System.out.printf("%-25s | %-25s | %-25s | %-25s %n",a.getIdBasket(),a.getAmount(),a.getDateBasket(), a.getidUser()));
 			if(flag) {
 				System.out.println("MONTANT TOTAL : " + business.getBasket());
 				System.out.println("Souhaitez vous passer commande ? Oui/Non :");
@@ -162,11 +163,11 @@ public class FormaAPP {
 	 * une fois toutes les opérations terminées correctement, le panier sera vidé et un numéro de commande attribué
 	 */
 	private static void nextStep() {
-		if(name == null)	{ 
+		if(Name == null)	{ 
 			System.out.println("Vous devez être connecté pour continuer");
 			connection();
 		}
-		if(name != null) {
+		if(Name != null) {
 			int IdUser = newUser(idUser);	
 			if(IdUser != 0) {
 				int IdBasket = business.basket(IdUser);	
@@ -192,15 +193,15 @@ public class FormaAPP {
 				System.out.println("Nous n'avons pas de compte client associé, nous allons le créer ");
 				scan.nextLine();	
 				System.out.println("saisissez votre nom :");
-				String name = scan.nextLine();
+				String Name = scan.nextLine();
 				System.out.println("saisissez votre prénom :");
-				String fName = scan.next();					
+				String FirstName = scan.next();					
 				System.out.println("saisissez votre tel :");
 				String tel = scan.next();		
 				scan.nextLine(); 
 				System.out.println("saisissez votre adresse :");
 				String address = scan.nextLine();
-				User cust = new User(IdUser, name, fName, email, tel, address, IdUser); 
+				User cust = new User(IdUser, Name, FirstName, email, tel, address, IdUser); 
 				if(authenticate.addUser(cust))	
 					return authenticate.existUserByEmail(email).getIdUser();
 			}
@@ -218,29 +219,29 @@ public class FormaAPP {
 	 * si l'utilisateur n'existe pas, il lui est proposé d'en créer un
 	 */
 	private static void connection() {
-		if(name != null) {
+		if(Name != null) {
 			System.out.println("Souhaitez vous vous déconnecter ? Oui/Non");
 			String response = scan.next();
 			if(response.equalsIgnoreCase("Oui")) {
-				System.out.println("A bientôt " + name + TEXT_RESET);
-				name = null;
+				System.out.println("A bientôt " + Name + TEXT_RESET);
+				Name = null;
 				idUser = 0;
 			}				
 		}
 		else {
-			System.out.println("saisissez votre login : ");
-			String name = scan.next();
-			System.out.println("saisissez votre password : ");
-			String pwd = scan.next();
+			System.out.println("saisissez votre Nom : ");
+			String Name = scan.next();
+			System.out.println("saisissez votre Prénom : ");
+			String FirstName = scan.next();
 			
-			int id = authenticate.existUser(name,pwd);
+			int id = authenticate.existUser(Name,FirstName);
 			if(id > 0)	{
-				FormaAPP.name = name;
+				FormaAPP.Name = Name;
 				idUser = id;
 				System.out.print(TEXT_BLUE);
 			}
 			else {
-				System.out.println("name ou password incorrect");
+				System.out.println("Name ou firstName incorrect");
 				System.out.println("Nouvel utilisateur, pour créer un compte, tapez ok");
 				String ok = scan.next();
 				if(ok.equalsIgnoreCase("ok")) {
@@ -254,18 +255,18 @@ public class FormaAPP {
 	 * Méthode qui ajoute un nouvel utilisateur en base
 	 */
 	public static void newUser() {
-		System.out.println("saisissez un login :");
-		String login = scan.next();			
-		int id = authenticate.existUser(login);	
+		System.out.println("saisissez un Name :");
+		String Name = scan.next();			
+		int id = authenticate.existUser(Name);	
 		if(id == 0) { 
 			System.out.println("saisissez votre password :");
-			String password = scan.next();
-			authenticate.addUser(login,password);		
+			String FirstName = scan.next();
+			authenticate.addUser(Name,FirstName);		
 			System.out.println("Ne perdez pas ces infos de connexion...");
 			stop(2);
 			System.out.println("création de l'utilisateur terminé, merci de vous connecter");
 		}
-		else	System.out.println("Login déjà existant en base, veuillez vous connecter");
+		else	System.out.println("Nom déjà existant en base, veuillez vous connecter");
 	}
 	
 	public static void stop(int time) {

@@ -4,9 +4,12 @@ import java.util.Collection;
 
 public class Format {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	private int IdFormat;
+	private String format;
+	
+	public Format(int IdFormat ,String format) {
+		this.IdFormat = IdFormat;
+		this.format = format;
 	}
 
 	public static Collection<? extends Training> values() {
@@ -14,9 +17,12 @@ public class Format {
 		return null;
 	}
 
-	public Object getformat() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getformat() {
+		return format;
+	}
+
+	public void setformat(String format) {
+		this.format = format;
 	}
 
 	public static Object getName() {
@@ -24,14 +30,18 @@ public class Format {
 		return null;
 	}
 
-	public Object getDescription() {
+	public String getDescription() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Object getIdFormat() {
+	public void setIdFormat(int IdFormat) {
+		this.IdFormat = IdFormat;
+	}
+	
+	public int getIdFormat() {
 		// TODO Auto-generated method stub
-		return null;
+		return IdFormat;
 	}
 
 }

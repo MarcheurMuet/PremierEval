@@ -65,8 +65,17 @@ public class Basket {
 		return null;
 	}
 
+	public void setvalues(int id) {
+		this.id = id;
+	}
+	
+	public int getvalues() {
+		// TODO Auto-generated method stub
+		return id;
+	}
+
 	public Training[] values() {
 		// TODO Auto-generated method stub
-		return null;
+		return values();
 	}
 }

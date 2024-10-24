@@ -4,34 +4,44 @@ import java.sql.Date;
 
 public class Training {
 
-		private static int idTraining;
+		private int IdTraining;
 		private String NameT;
 		private String description;
-		private static int durationD;
+		private int durationD;
 		private String format;
 		private int IdBasket;
 		private Date date;
-		private static int IdUser;
+		private int idUser;
+		@SuppressWarnings("unused")
 		private String Amount;
-		private static int Quantity;
-		private static double price;
+		private int Quantity;
+		private double price;
 		
-		public Training(int idTraining, String NameT, String description, int durationD, String format, double rsprice) {
-			Training.idTraining = idTraining;
+		public Training(int idTraining, String NameT, String description, int durationD, String format, double rsprice, int Quantity) {
+			this.IdTraining = idTraining;
 			this.NameT = NameT;
 			this.description = description;
-			Training.durationD = durationD;
+			this.durationD = durationD;
 			this.format = format;
 			this.Quantity = Quantity;
-			Training.price = rsprice;
+			this.price = rsprice;
 		}
 		
-		public static int getidTraining() {
-			return idTraining;
+		public Training(int IdTraining, String NameT, String description, int durationD, String format, double rsprice) {
+			this.IdTraining = IdTraining;
+			this.NameT = NameT;
+			this.description = description;
+			this.durationD = durationD;
+			this.format = format;
+			this.price = rsprice;
+		}
+		
+		public int getIdTraining() {
+			return IdTraining;
 		}
 
-		public void setIdTraining(int idTraining) {
-			this.idTraining = idTraining;
+		public void setIdTraining(int IdTraining) {
+			this.IdTraining = IdTraining;
 		}
 		
 		public String getNameT() {
@@ -50,12 +60,12 @@ public class Training {
 			this.description = description;
 		}
 		
-		public static int getdurationD() {
+		public int getdurationD() {
 			return durationD;
 		}
 
 		public void setdurationD(int durationD) {
-			Training.durationD = durationD;
+			this.durationD = durationD;
 		}
 		
 		public String getformat() {
@@ -67,10 +77,10 @@ public class Training {
 		}
 
 		public void setprice(double price) {
-			Training.price = price;
+			this.price = price;
 		}
 		
-		public static double getprice() {
+		public double getprice() {
 			return price;
 		}
 
@@ -78,8 +88,8 @@ public class Training {
 			this.description = description;
 		}
 		
-		public void setIdBasket(int id) {
-			this.IdBasket = id;
+		public void setIdBasket(int idBasket) {
+			this.IdBasket = idBasket;
 		}
 
 		public int getIdBasket() {
@@ -102,21 +112,20 @@ public class Training {
 			return date;
 		}
 
-		public void setIdUser(int IdUser) {
-			this.IdUser = IdUser;
+		public void setidUser(int idUser) {
+			this.idUser = idUser;
 		}
 		
-		public static int getIdUser() {
-			return IdUser;
+		public int getidUser() {
+			return idUser;
 		}
 		
 		public void setQuantity(int Quantity) {
-			Training.Quantity = Quantity;
+			this.Quantity = Quantity;
 		}
 
-		public static int getQuantity() {
+		public int getQuantity() {
 			return Quantity;
 		}
-
 		
 }

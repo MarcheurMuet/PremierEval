@@ -18,23 +18,23 @@ INSERT INTO T_Users (idUser, Name, FirstName, password, email, adress, phoneNumb
 
 
 
-CREATE TABLE T_Formats (
+CREATE TABLE T_Format (
 	IdFormat 			int(4) PRIMARY KEY AUTO_INCREMENT,
 	format 				varchar(10) NOT NULL
 ) ENGINE = InnoDB;
 
-INSERT INTO T_Formats (IdFormat, format) VALUES (1, 'Mixte');
-INSERT INTO T_Formats (IdFormat, format) VALUES (2, 'Distentiel');
-INSERT INTO T_Formats (IdFormat, format) VALUES (3, 'Presentiel');
+INSERT INTO T_Format (IdFormat, format) VALUES (1, 'Mixte');
+INSERT INTO T_Format (IdFormat, format) VALUES (2, 'Distentiel');
+INSERT INTO T_Format (IdFormat, format) VALUES (3, 'Presentiel');
 
 CREATE TABLE T_Training (
 	IdTraining			int(4) PRIMARY KEY AUTO_INCREMENT,
 	NameT				varchar(40)	NOT NULL UNIQUE,
 	description			varchar(80)	NOT NULL UNIQUE,
 	durationD			INT (40),
-	price				INT (40),
+	price				DOUBLE (40),
 	IdFormat			INT(40)	NOT NULL,
-	FOREIGN KEY (IdFormat)	REFERENCES T_Formats(IdFormat)
+	FOREIGN KEY (IdFormat)	REFERENCES T_Format(IdFormat)
 ) ENGINE = InnoDB;
 
 INSERT INTO T_Training (IdTraining, NameT, description, durationD, price, IdFormat) VALUES (1, 'DevWeb', 'Formation pour coder', 60, 900, 1);
