@@ -9,7 +9,7 @@ import entities.User;
 public class DaoFactory {
 	
 	public static Dao<Training> getTrainingDao() {
-		return new TrainingDao();		
+		return new TrainingDao(null);		
 	}
 	public static Dao<User> getUserDao() {
 		return new UserDao();		
