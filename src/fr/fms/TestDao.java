@@ -12,7 +12,7 @@ import dao.Dao;
 
 public class TestDao {
 	public static void main(String[] args) {
-	TrainingDao TrainingDao = new TrainingDao(null);
+	TrainingDao TrainingDao = new TrainingDao();
 	System.out.println(TrainingDao.read(10));
 	}
 	
@@ -26,7 +26,7 @@ public class TestDao {
 		
 		User User = UserDao.findUserByCredentials(FirstName, password);
 		if(User != null) {
-			for(Training training : new TrainingDao(null).readAll()) {
+			for(Training training : new TrainingDao().readAll()) {
 				System.out.println(training);
 			}
 		} else System.out.println("Mauvais prénom ou mot de passe recommence!");
@@ -42,7 +42,7 @@ public class TestDao {
 	}
 	
 	private static void testTrainingDao() {
-		TrainingDao trainingDao = new TrainingDao(null);
+		TrainingDao trainingDao = new TrainingDao();
 		
 		for(Training training : trainingDao.readAll()) {
 			System.out.println(training);

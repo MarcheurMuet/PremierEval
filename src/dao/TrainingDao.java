@@ -1,20 +1,15 @@
 package dao;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import entities.Training;
 
 public class TrainingDao implements Dao<Training>{
 
-
-	    private final Connection connection;
-
-	    public TrainingDao(Connection connection) {
-	        this.connection = connection;
-	    }
-	
 	public boolean create(Training obj) {
 		String str = "INSERT INTO T_Training (idTraining, nameT, description, durationD, format, price) VALUES (?,?,?,?,?,?);";	
 		try (PreparedStatement ps = connection.prepareStatement(str)){
