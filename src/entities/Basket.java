@@ -64,4 +64,9 @@ public class Basket {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Training[] values() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

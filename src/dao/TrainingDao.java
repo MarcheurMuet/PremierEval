@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import entities.Training;
 
 public class TrainingDao implements Dao<Training>{
@@ -16,7 +15,7 @@ public class TrainingDao implements Dao<Training>{
 			ps.setInt(1, obj.getidTraining());
 			ps.setString(2, obj.getNameT());
 			ps.setString(3, obj.getdescription());	
-			ps.setInt(4, obj.getdurationD());
+			ps.setInt(4, Training.getdurationD());
 			ps.setString(5, obj.getformat());
 			ps.setDouble(6, Training.getprice());
 			if( ps.executeUpdate() == 1)	return true;
@@ -28,7 +27,7 @@ public class TrainingDao implements Dao<Training>{
 
 	public Training read(int id) {
 		try (Statement statement = connection.createStatement()){
-			String str = "SELECT * FROM T_Training where idTraining=" + id + ";";									
+			String str = "SELECT * FROM T_Training where IdTraining=" + id + ";";									
 			ResultSet rs = statement.executeQuery(str);
 			if(rs.next()) return new Training(rs.getInt(1) , rs.getString(2) , rs.getString(3) , rs.getInt(4) , rs.getString(5) , rs.getInt(6));
 		} catch (SQLException e) {
@@ -40,7 +39,7 @@ public class TrainingDao implements Dao<Training>{
 
 	public boolean delete(Training obj) {
 		try (Statement statement = connection.createStatement()){
-			String str = "DELETE FROM T_Training where idTraining=" + obj.getidTraining() + ";";									
+			String str = "DELETE FROM T_Training where IdTraining=" + obj.getidTraining() + ";";									
 			statement.executeUpdate(str);		
 			return true;
 		} catch (SQLException e) {
@@ -54,7 +53,7 @@ public class TrainingDao implements Dao<Training>{
 		try (PreparedStatement ps = connection.prepareStatement(str)){				
 			ps.setString(1, obj.getNameT());
 			ps.setString(2, obj.getdescription());	
-			ps.setInt(3, obj.getdurationD());
+			ps.setInt(3, Training.getdurationD());
 			ps.setString(4, obj.getformat());
 			ps.setDouble(5, Training.getprice());
 			if( ps.executeUpdate() == 1)	return true;
@@ -66,16 +65,16 @@ public class TrainingDao implements Dao<Training>{
 	
 	public ArrayList<Training> readAll() {
 		ArrayList<Training> training = new ArrayList<Training>();
-		String strSql = "SELECT * FROM T_Training";		
+		String strSQL = "SELECT * FROM T_Training";		
 		try(Statement statement = connection.createStatement()){
-			try(ResultSet resultSet = statement.executeQuery(strSql)){ 			
+			try(ResultSet resultSet = statement.executeQuery(strSQL)){ 			
 				while(resultSet.next()) {
 					int rsidTraining = resultSet.getInt(1);	
 					String rsNameT = resultSet.getString(2);
 					String rsdescription = resultSet.getString(3);
 					int rsdurationD = resultSet.getInt(4);
-					String rsformat = resultSet.getString(5);
-					double rsprice = resultSet.getDouble(6);		
+					double rsprice = resultSet.getDouble(5);
+					String rsformat = resultSet.getString(6);
 					training.add((new Training(rsidTraining,rsNameT,rsdescription,rsdurationD,rsformat,rsprice)));						
 				}	
 			}
@@ -86,9 +85,30 @@ public class TrainingDao implements Dao<Training>{
 	}
 	
 	/**Méthode qui renvoi toutes les formations d'un utilisateur*/
-	public ArrayList<Training> readAllByCat(int idUser) {
+	public ArrayList<Training> readAllByFormat(String format) {
 		ArrayList<Training> training = new ArrayList<Training>();
-		String strSql = "SELECT * FROM T_Training where idUser=" + idUser;		
+		String strSql = "SELECT * FROM T_Training where IdUser=" + format;		
+		try(Statement statement = connection.createStatement()){
+			try(ResultSet resultSet = statement.executeQuery(strSql)){ 			
+				while(resultSet.next()) {
+					int rsidTraining = resultSet.getInt(1);	
+					String rsNameT = resultSet.getString(2);
+					String rsdescription = resultSet.getString(3);
+					int rsdurationD = resultSet.getInt(4);
+					String rsformat = resultSet.getString(5);
+					double rsprice = resultSet.getDouble(6);
+					training.add(new Training(rsidTraining, rsNameT, rsdescription, rsdurationD, rsformat, rsprice));						
+				}	
+			}
+		} catch (SQLException e) {
+			logger.severe("problème sur le renvoi des formation d'une catégorie " + e.getMessage());
+		}			
+		return training;
+	}
+
+	public ArrayList<Training> readAllByFormatId(int idFormat) {
+		ArrayList<Training> training = new ArrayList<Training>();
+		String strSql = "SELECT * FROM T_Training where IdUser=" + idFormat;		
 		try(Statement statement = connection.createStatement()){
 			try(ResultSet resultSet = statement.executeQuery(strSql)){ 			
 				while(resultSet.next()) {

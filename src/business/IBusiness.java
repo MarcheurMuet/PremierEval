@@ -26,4 +26,18 @@ public interface IBusiness {
 	ArrayList<Training> readTraining();
 
 	ArrayList<Training> getFormat();
+
+	ArrayList<Training> getBasket();
+
+	void rmFromBasket(int IdBasket);
+
+	void addToBasket(Training training);
+
+	int basket(int IdBasket);
+
+	ArrayList<Training> readTrainingsByFormId(int IdFormat);
+
+	ArrayList<Training> readTrainingsByFormat(int IdFormat);
+
+	ArrayList<Training> readTrainingByFormat(int IdFormat);
 }

@@ -71,7 +71,7 @@ public class TestDao {
 		private static void testDaoFactory() {
 			Dao<User> UserDao = DaoFactory.getUserDao();
 				
-			Predicate<Training> traPredicate = a -> a.getId() >= 5 && (Training.getprice() > 50 && Training.getprice() < 100); 
+			Predicate<Training> traPredicate = a -> a.getIdUser() >= 5 && (Training.getprice() > 50 && Training.getprice() < 100); 
 			DaoFactory.getTrainingDao().readAll()
 						.stream()
 						.filter(traPredicate)

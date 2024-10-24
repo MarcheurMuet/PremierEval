@@ -19,12 +19,17 @@ public class Format {
 		return null;
 	}
 
-	public Object getName() {
+	public static Object getName() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public Object getDescription() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getIdFormat() {
 		// TODO Auto-generated method stub
 		return null;
 	}
